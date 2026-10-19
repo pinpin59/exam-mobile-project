@@ -1,0 +1,17 @@
+{
+  "home": {
+    "eyebrow": "Starter kit",
+    "title": "Welcome to EventEase",
+    "subtitle": "If this text shows with the right fonts and colors, everything works.",
+    "cta": "Join",
+    "joined": "You're going!",
+    "cancel": "Cancel my spot"
+  },
+  "settings": {
+    "theme": "Theme",
+    "language": "Language",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  }
+}

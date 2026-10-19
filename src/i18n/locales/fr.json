@@ -1,0 +1,17 @@
+{
+  "home": {
+    "eyebrow": "Kit de démarrage",
+    "title": "Bienvenue sur EventEase",
+    "subtitle": "Si ce texte s'affiche avec les bonnes polices et les bonnes couleurs, tout fonctionne.",
+    "cta": "Participer",
+    "joined": "Vous participez !",
+    "cancel": "Annuler ma participation"
+  },
+  "settings": {
+    "theme": "Thème",
+    "language": "Langue",
+    "light": "Clair",
+    "dark": "Sombre",
+    "system": "Système"
+  }
+}
