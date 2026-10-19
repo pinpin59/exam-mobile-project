@@ -13,5 +13,10 @@
     "light": "Light",
     "dark": "Dark",
     "system": "System"
+  },
+  "category": {
+    "conference": "Conference",
+    "workshop": "Workshop",
+    "outing": "Outing"
   }
 }

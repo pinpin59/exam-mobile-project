@@ -13,5 +13,10 @@
     "light": "Clair",
     "dark": "Sombre",
     "system": "Système"
+  },
+  "category": {
+    "conference": "Conférence",
+    "workshop": "Atelier",
+    "outing": "Sortie"
   }
 }
