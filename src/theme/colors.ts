@@ -1,4 +1,3 @@
-// Palette EventEase : mêmes clés en clair et en sombre
 export const palette = {
   light: {
     background: "#F5F6F2", // Fond d'écran

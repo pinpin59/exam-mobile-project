@@ -2,7 +2,13 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { router } from "expo-router";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Pressable, ScrollView, View } from "react-native";
+import {
+  KeyboardAvoidingView,
+  Platform,
+  Pressable,
+  ScrollView,
+  View,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { AppIcon } from "@/components/AppIcon";
@@ -54,6 +60,11 @@ export default function LoginScreen() {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
+      {/* Remonte le contenu quand le clavier s'ouvre (iOS) */}
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === "ios" ? "padding" : undefined}
+      >
       <ScrollView
         contentContainerClassName="flex-grow justify-center gap-lg p-xl"
         keyboardShouldPersistTaps="handled"
@@ -147,6 +158,7 @@ export default function LoginScreen() {
           </AppText>
         </View>
       </ScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }

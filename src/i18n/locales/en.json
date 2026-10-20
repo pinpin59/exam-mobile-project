@@ -56,5 +56,9 @@
     "userHint": "I attend events",
     "volunteer": "Volunteer",
     "volunteerHint": "I help organise them"
+  },
+  "profile": {
+    "participations": "Attending",
+    "created": "Created"
   }
 }

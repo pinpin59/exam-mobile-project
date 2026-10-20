@@ -56,5 +56,9 @@
     "userHint": "Je participe aux événements",
     "volunteer": "Bénévole",
     "volunteerHint": "J'aide à les organiser"
+  },
+  "profile": {
+    "participations": "Participations",
+    "created": "Créés"
   }
 }

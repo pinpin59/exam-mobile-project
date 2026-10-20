@@ -1,6 +1,5 @@
 import type { TextStyle } from "react-native";
 
-// Noms exportés par @expo-google-fonts
 export const fonts = {
   display: "BricolageGrotesque_700Bold",
   displaySemi: "BricolageGrotesque_600SemiBold",
