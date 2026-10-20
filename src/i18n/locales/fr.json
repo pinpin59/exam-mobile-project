@@ -18,5 +18,10 @@
     "conference": "Conférence",
     "workshop": "Atelier",
     "outing": "Sortie"
+  },
+  "tabs": {
+    "events": "Événements",
+    "calendar": "Calendrier",
+    "profile": "Profil"
   }
 }
