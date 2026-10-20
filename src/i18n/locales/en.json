@@ -23,5 +23,38 @@
     "events": "Events",
     "calendar": "Calendar",
     "profile": "Profile"
+  },
+  "auth": {
+    "loginTitle": "Log in",
+    "signupTitle": "Create an account",
+    "email": "Email address",
+    "password": "Password",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "login": "Log in",
+    "signup": "Sign up",
+    "noAccount": "No account yet? Sign up",
+    "haveAccount": "Already have an account? Log in",
+    "appSubtitle": "Conferences, workshops and outings of the association",
+    "tabLogin": "Log in",
+    "tabSignup": "Sign up",
+    "emailPlaceholder": "you@example.com",
+    "passwordPlaceholder": "Your password",
+    "noAccountQuestion": "No account yet?",
+    "createAccount": "Create an account",
+    "deviceNote": "Account saved on this device only",
+    "errors": {
+      "emailRequired": "Enter your email address",
+      "emailInvalid": "Invalid email address",
+      "passwordRequired": "Enter your password"
+    },
+    "backToLogin": "Back to log in",
+    "roleTitle": "I am a"
+  },
+  "role": {
+    "user": "Member",
+    "userHint": "I attend events",
+    "volunteer": "Volunteer",
+    "volunteerHint": "I help organise them"
   }
 }

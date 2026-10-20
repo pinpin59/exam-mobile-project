@@ -23,5 +23,38 @@
     "events": "Événements",
     "calendar": "Calendrier",
     "profile": "Profil"
+  },
+  "auth": {
+    "loginTitle": "Connexion",
+    "signupTitle": "Créer un compte",
+    "email": "Adresse e-mail",
+    "password": "Mot de passe",
+    "firstName": "Prénom",
+    "lastName": "Nom",
+    "login": "Se connecter",
+    "signup": "S'inscrire",
+    "noAccount": "Pas encore de compte ? Inscris-toi",
+    "haveAccount": "Déjà un compte ? Connecte-toi",
+    "appSubtitle": "Conférences, ateliers et sorties de l'association",
+    "tabLogin": "Connexion",
+    "tabSignup": "Inscription",
+    "emailPlaceholder": "vous@exemple.fr",
+    "passwordPlaceholder": "Votre mot de passe",
+    "noAccountQuestion": "Pas encore de compte ?",
+    "createAccount": "Créer un compte",
+    "deviceNote": "Compte enregistré sur cet appareil uniquement",
+    "errors": {
+      "emailRequired": "Saisissez votre adresse e-mail",
+      "emailInvalid": "Adresse e-mail invalide",
+      "passwordRequired": "Saisissez votre mot de passe"
+    },
+    "backToLogin": "Retour à la connexion",
+    "roleTitle": "Je suis"
+  },
+  "role": {
+    "user": "Membre",
+    "userHint": "Je participe aux événements",
+    "volunteer": "Bénévole",
+    "volunteerHint": "J'aide à les organiser"
   }
 }

@@ -16,11 +16,11 @@ import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 
-import { AuthProvider } from "@/contexts/AuthContext";
+import { AuthProvider, useAuth } from "@/contexts/AuthContext";
 import { EventsProvider } from "@/contexts/EventsContext";
 import { ThemeProvider, useTheme } from "@/theme/ThemeContext";
 
-// Keep the splash screen while the fonts are loading
+// Garde le splash screen tant que les polices et la session chargent
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
@@ -31,10 +31,6 @@ export default function RootLayout() {
     DMSans_500Medium,
     DMSans_700Bold,
   });
-
-  useEffect(() => {
-    if (loaded || error) SplashScreen.hideAsync();
-  }, [loaded, error]);
 
   if (!loaded && !error) return null;
 
@@ -51,6 +47,16 @@ export default function RootLayout() {
 
 function RootStack() {
   const { mode, colors } = useTheme();
+  const { user, isLoading } = useAuth();
+
+  // On cache le splash seulement quand on sait si l'utilisateur est connecté,
+  // sinon l'écran de connexion clignoterait avant d'afficher les onglets
+  useEffect(() => {
+    if (!isLoading) SplashScreen.hideAsync();
+  }, [isLoading]);
+
+  if (isLoading) return null;
+
   return (
     <>
       <StatusBar style={mode === "dark" ? "light" : "dark"} />
@@ -59,7 +65,18 @@ function RootStack() {
           headerShown: false,
           contentStyle: { backgroundColor: colors.background },
         }}
-      />
+      >
+        {/* Connecté : accès aux onglets uniquement */}
+        <Stack.Protected guard={!!user}>
+          <Stack.Screen name="(tabs)" />
+        </Stack.Protected>
+
+        {/* Déconnecté : accès à login / signup uniquement.
+            À la déconnexion, user devient null → renvoi automatique ici */}
+        <Stack.Protected guard={!user}>
+          <Stack.Screen name="(auth)" />
+        </Stack.Protected>
+      </Stack>
     </>
   );
 }

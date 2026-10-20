@@ -3,6 +3,7 @@ export interface User {
   firstName: string;
   lastName: string;
   email: string;
+  role: UserRole;
 }
 
 export interface Credentials {
@@ -11,3 +12,5 @@ export interface Credentials {
 }
 
 export type SignUpData = Omit<User, "id"> & Pick<Credentials, "password">;
+
+export type UserRole = "volunteer" | "user";

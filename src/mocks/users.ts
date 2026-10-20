@@ -10,6 +10,7 @@ export const mockAccounts: MockAccount[] = [
     firstName: "Kevin",
     lastName: "Pintar",
     email: "kevin@eventease.dev",
+    role: "volunteer",
     password: "password123",
   },
   {
@@ -17,6 +18,7 @@ export const mockAccounts: MockAccount[] = [
     firstName: "Camille",
     lastName: "Durand",
     email: "camille@eventease.dev",
+    role: "user",
     password: "password123",
   },
   {
@@ -24,6 +26,7 @@ export const mockAccounts: MockAccount[] = [
     firstName: "Lucas",
     lastName: "Martin",
     email: "lucas@eventease.dev",
+    role: "user",
     password: "password123",
   },
   {
@@ -31,9 +34,12 @@ export const mockAccounts: MockAccount[] = [
     firstName: "Inès",
     lastName: "Moreau",
     email: "ines@eventease.dev",
+    role: "user",
     password: "password123",
   },
 ];
 
 // Les mêmes utilisateurs, sans mot de passe
-export const mockUsers: User[] = mockAccounts.map(({ password, ...user }) => user);
+export const mockUsers: User[] = mockAccounts.map(
+  ({ password, ...user }) => user,
+);
