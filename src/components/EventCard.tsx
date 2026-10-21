@@ -21,6 +21,7 @@ type Props = {
   joined?: boolean; // l'utilisateur participe → talon orangé + badge
   weather?: { icon: IconName; temp: number }; // optionnel
   distanceKm?: number; // optionnel, ex : 2.4
+  showTime?: boolean; // talon : heure au lieu de la date (vue Calendrier)
   onPress?: () => void; // ouverture du détail
 };
 
@@ -29,11 +30,21 @@ type Props = {
  * Les tailles précises (talon, encoches, polices) sont en style :
  * les valeurs entre crochets ne s'appliquent pas dans ce projet.
  */
-export function EventCard({ event, joined = false, weather, distanceKm, onPress }: Props) {
+export function EventCard({
+  event,
+  joined = false,
+  weather,
+  distanceKm,
+  showTime = false,
+  onPress,
+}: Props) {
   const { t } = useTranslation();
   const language = useLanguage();
   const day = dayNumber(event.startsAt);
   const month = monthShort(event.startsAt, language);
+  // showTime : le talon affiche l'heure au lieu de la date (le jour est déjà affiché au-dessus)
+  const stubTop = showTime ? formatTime(event.startsAt) : day;
+  const stubBottom = showTime ? "" : month;
 
   return (
     <Pressable
@@ -44,7 +55,7 @@ export function EventCard({ event, joined = false, weather, distanceKm, onPress 
       className="flex-row overflow-hidden rounded-lg border border-border bg-surface active:opacity-85"
       style={{ minHeight: 92 }}
     >
-      <TicketStub day={day} month={month} joined={joined} />
+      <TicketStub top={stubTop} bottom={stubBottom} small={showTime} joined={joined} />
       <Perforation />
 
       <View className="flex-1 px-md" style={{ paddingVertical: 10, gap: 3 }}>
@@ -88,23 +99,42 @@ export function EventCard({ event, joined = false, weather, distanceKm, onPress 
 /* ---------- Sous-composants ---------- */
 
 // Talon gauche : jour + mois
-function TicketStub({ day, month, joined }: { day: string; month: string; joined: boolean }) {
+// top : jour ("30") ou heure ("9:00") ; bottom : mois ("OCT") ou vide
+// small : texte plus petit pour l'heure, plus large que le jour
+function TicketStub({
+  top,
+  bottom,
+  small,
+  joined,
+}: {
+  top: string;
+  bottom: string;
+  small: boolean;
+  joined: boolean;
+}) {
   return (
     <View
       className={`items-center justify-center ${joined ? "bg-accentSoft" : ""}`}
       style={{ width: STUB_WIDTH, paddingVertical: 10 }}
     >
       <AppText
-        style={{ fontFamily: fonts.display, fontSize: 24, lineHeight: 26, fontVariant: ["tabular-nums"] }}
+        style={{
+          fontFamily: fonts.display,
+          fontSize: small ? 17 : 24,
+          lineHeight: small ? 20 : 26,
+          fontVariant: ["tabular-nums"],
+        }}
       >
-        {day}
+        {top}
       </AppText>
-      <AppText
-        className="text-textMuted"
-        style={{ fontFamily: fonts.bold, fontSize: 10, letterSpacing: 1.2 }}
-      >
-        {month}
-      </AppText>
+      {bottom !== "" && (
+        <AppText
+          className="text-textMuted"
+          style={{ fontFamily: fonts.bold, fontSize: 10, letterSpacing: 1.2 }}
+        >
+          {bottom}
+        </AppText>
+      )}
     </View>
   );
 }

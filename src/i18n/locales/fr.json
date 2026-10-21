@@ -87,5 +87,8 @@
     "snow": "Neige",
     "storm": "Orage",
     "unavailable": "Pas encore de prévision"
+  },
+  "calendar": {
+    "empty": "Aucun événement ce jour-là."
   }
 }

@@ -87,5 +87,8 @@
     "snow": "Snow",
     "storm": "Storm",
     "unavailable": "No forecast yet"
+  },
+  "calendar": {
+    "empty": "No events on this day."
   }
 }

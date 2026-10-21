@@ -18,6 +18,22 @@ export function dayNumber(iso: string) {
   return String(new Date(iso).getDate());
 }
 
+// Date → clé "2026-10-30" en heure locale (format attendu par le calendrier)
+export function dateKey(date: string | Date) {
+  const d = new Date(date);
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+}
+
+// "2026-10-30" → "Vendredi 30 octobre" (dans la langue demandée)
+export function formatDayLong(iso: string, locale = "fr") {
+  const label = new Date(iso).toLocaleDateString(locale, {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+  });
+  return label.charAt(0).toUpperCase() + label.slice(1);
+}
+
 // "2026-10-30T09:00:00" → "OCT" (dans la langue demandée : "fr" → "OCT", "en" → "OCT")
 export function monthShort(iso: string, locale = "fr") {
   return new Date(iso)

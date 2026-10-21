@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "EventEase",
+    "name": "EventEasePinpin",
     "slug": "exam-mobile-project",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -42,14 +42,8 @@
         "expo-localization",
         {
           "supportedLocales": {
-            "ios": [
-              "fr",
-              "en"
-            ],
-            "android": [
-              "fr",
-              "en"
-            ]
+            "ios": ["fr", "en"],
+            "android": ["fr", "en"]
           }
         }
       ],
