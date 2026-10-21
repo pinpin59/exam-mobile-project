@@ -7,6 +7,7 @@ import { AppText } from "@/components/AppText";
 import { EventCard } from "@/components/EventCard";
 import { useAuth } from "@/contexts/AuthContext";
 import { useEvents } from "@/contexts/EventsContext";
+import { useEventsWeather } from "@/hooks/useEventsWeather";
 import { distanceKm } from "@/utils/distance";
 
 export default function EventsScreen() {
@@ -14,6 +15,7 @@ export default function EventsScreen() {
   const { user } = useAuth();
   const { events } = useEvents();
   const { position } = useLocation();
+  const weatherById = useEventsWeather();
 
   const now = new Date();
   const upcomingEvents = events
@@ -30,6 +32,7 @@ export default function EventsScreen() {
           <EventCard
             key={eventItem.id}
             distanceKm={position ? distanceKm(position, eventItem) : undefined}
+            weather={weatherById[eventItem.id]}
             event={eventItem}
             joined={!!user && eventItem.participantIds.includes(user.id)}
             onPress={() => {
