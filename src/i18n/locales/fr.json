@@ -60,5 +60,8 @@
   "profile": {
     "participations": "Participations",
     "created": "Créés"
+  },
+  "event": {
+    "joinedBadge": "Participé"
   }
 }

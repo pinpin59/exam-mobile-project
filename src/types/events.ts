@@ -3,9 +3,11 @@ export interface EventItem {
   name: string;
   description: string;
   startsAt: string; // ex : "2026-10-30T09:00:00"
-  location: string;
   category: EventCategory;
   participantIds: string[];
+  location: string;
+  latitude: number;
+  longitude: number;
 }
 
 export type EventCategory = "conference" | "workshop" | "outing";

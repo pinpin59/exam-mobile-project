@@ -53,6 +53,12 @@
           }
         }
       ],
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "EventEase utilise votre position pour afficher la distance jusqu'aux événements."
+        }
+      ],
       "expo-image",
       "expo-status-bar",
       "expo-web-browser"

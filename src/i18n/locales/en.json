@@ -60,5 +60,8 @@
   "profile": {
     "participations": "Attending",
     "created": "Created"
+  },
+  "event": {
+    "joinedBadge": "Going"
   }
 }

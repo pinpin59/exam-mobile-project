@@ -12,3 +12,16 @@ export function formatTime(iso: string) {
   const d = new Date(iso);
   return `${d.getHours()}:${pad(d.getMinutes())}`;
 }
+
+// "2026-10-30T09:00:00" → "30"
+export function dayNumber(iso: string) {
+  return String(new Date(iso).getDate());
+}
+
+// "2026-10-30T09:00:00" → "OCT" (dans la langue demandée : "fr" → "OCT", "en" → "OCT")
+export function monthShort(iso: string, locale = "fr") {
+  return new Date(iso)
+    .toLocaleDateString(locale, { month: "short" })
+    .replace(".", "") // "oct." → "oct"
+    .toUpperCase();
+}
