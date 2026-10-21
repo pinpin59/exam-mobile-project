@@ -72,7 +72,12 @@
     "participants_other": "{{count}} participants",
     "join": "Participer",
     "joinedButton": "Vous participez",
-    "cancelHint": "Appuyez pour annuler votre participation"
+    "cancelHint": "Appuyez pour annuler votre participation",
+    "deleteTitle": "Supprimer l'événement ?",
+    "deleteMessage": "Êtes-vous sûr de vouloir supprimer votre événement ? Cette action est définitive.",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "deleteError": "Suppression impossible"
   },
   "weather": {
     "sunny": "Ensoleillé",

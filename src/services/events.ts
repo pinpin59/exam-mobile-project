@@ -41,7 +41,10 @@ export async function getUserEvents(userId: string): Promise<EventItem[]> {
     .map((e) => ({ ...e }));
 }
 
-export async function joinEvent(eventId: string, userId: string): Promise<EventItem> {
+export async function joinEvent(
+  eventId: string,
+  userId: string,
+): Promise<EventItem> {
   await delay();
 
   const index = eventItems.findIndex((e) => e.id === eventId);
@@ -53,13 +56,19 @@ export async function joinEvent(eventId: string, userId: string): Promise<EventI
   }
 
   // Nouveau tableau avec le participant en plus (pas de push)
-  const updated = { ...event, participantIds: [...event.participantIds, userId] };
+  const updated = {
+    ...event,
+    participantIds: [...event.participantIds, userId],
+  };
   eventItems[index] = updated;
 
   return { ...updated };
 }
 
-export async function leaveEvent(eventId: string, userId: string): Promise<EventItem> {
+export async function leaveEvent(
+  eventId: string,
+  userId: string,
+): Promise<EventItem> {
   await delay();
 
   const index = eventItems.findIndex((e) => e.id === eventId);
@@ -78,4 +87,13 @@ export async function leaveEvent(eventId: string, userId: string): Promise<Event
   eventItems[index] = updated;
 
   return { ...updated };
+}
+
+export async function deleteEvent(eventId: string): Promise<void> {
+  await delay();
+
+  const index = eventItems.findIndex((e) => e.id === eventId);
+  if (index === -1) throw new Error("Event does not exist");
+
+  eventItems.splice(index, 1);
 }

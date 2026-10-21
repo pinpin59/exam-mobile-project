@@ -18,6 +18,7 @@ type EventsContextValue = {
   fetchEvents: () => Promise<void>;
   join: (eventId: string) => Promise<void>;
   leave: (eventId: string) => Promise<void>;
+  deleteEvent: (eventId: string) => Promise<void>;
 };
 
 const EventsContext = createContext<EventsContextValue | null>(null);
@@ -63,9 +64,23 @@ export function EventsProvider({ children }: { children: ReactNode }) {
     replaceEvent(await eventsService.leaveEvent(eventId, user.id));
   };
 
+  const deleteEvent = async (eventId: string) => {
+    if (!user) throw new Error("You must be logged in");
+    await eventsService.deleteEvent(eventId);
+    setEvents((list) => list.filter((e) => e.id !== eventId));
+  };
+
   return (
     <EventsContext.Provider
-      value={{ events, isLoading, error, fetchEvents, join, leave }}
+      value={{
+        events,
+        isLoading,
+        error,
+        fetchEvents,
+        join,
+        leave,
+        deleteEvent,
+      }}
     >
       {children}
     </EventsContext.Provider>

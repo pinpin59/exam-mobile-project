@@ -72,7 +72,12 @@
     "participants_other": "{{count}} attendees",
     "join": "Join",
     "joinedButton": "You're going",
-    "cancelHint": "Tap to cancel your spot"
+    "cancelHint": "Tap to cancel your spot",
+    "deleteTitle": "Delete this event?",
+    "deleteMessage": "Are you sure you want to delete your event? This can't be undone.",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "deleteError": "Couldn't delete the event"
   },
   "weather": {
     "sunny": "Sunny",

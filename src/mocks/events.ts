@@ -5,6 +5,7 @@ import type { EventItem } from "@/types";
 export const mockEvents: EventItem[] = [
   {
     id: "e1",
+    createdBy: "u2",
     name: "Conférence Green IT",
     description:
       "Comment réduire l'empreinte carbone de nos applications : mesures, bonnes pratiques et retours d'expérience.",
@@ -17,6 +18,7 @@ export const mockEvents: EventItem[] = [
   },
   {
     id: "e2",
+    createdBy: "u4",
     name: "Atelier Git & GitHub",
     description:
       "Branches, pull requests et résolution de conflits : un atelier pratique pour bien travailler en équipe.",
@@ -29,6 +31,7 @@ export const mockEvents: EventItem[] = [
   },
   {
     id: "e3",
+    createdBy: "u1",
     name: "Meetup React Native",
     description:
       "Trois talks sur Expo, la navigation et les performances, suivis d'un apéro pour échanger entre développeurs.",
@@ -41,6 +44,7 @@ export const mockEvents: EventItem[] = [
   },
   {
     id: "e4",
+    createdBy: "u4",
     name: "Atelier Figma pour développeurs",
     description:
       "Lire une maquette, exporter des assets et comprendre un design system sans être designer.",
@@ -53,6 +57,7 @@ export const mockEvents: EventItem[] = [
   },
   {
     id: "e5",
+    createdBy: "u2",
     name: "Randonnée en baie de Somme",
     description:
       "Journée de marche guidée de 12 km au bord de la baie, avec observation des phoques. Prévoir des chaussures adaptées.",
@@ -65,6 +70,7 @@ export const mockEvents: EventItem[] = [
   },
   {
     id: "e6",
+    createdBy: "u1",
     name: "Conférence IA & accessibilité",
     description:
       "Ce que l'IA change pour rendre les applications accessibles à tous, avec démonstrations en direct.",
@@ -77,6 +83,7 @@ export const mockEvents: EventItem[] = [
   },
   {
     id: "e7",
+    createdBy: "u1",
     name: "Atelier tests avec Jest",
     description:
       "Écrire ses premiers tests unitaires et tests de composants React Native, du setup à l'intégration continue.",
@@ -89,6 +96,7 @@ export const mockEvents: EventItem[] = [
   },
   {
     id: "e8",
+    createdBy: "u3",
     name: "Marché de Noël entre collègues",
     description:
       "Balade dans le marché de Noël de Lille et dégustation de vin chaud. Rendez-vous devant la grande roue.",

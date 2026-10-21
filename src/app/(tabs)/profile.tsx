@@ -21,8 +21,10 @@ export default function ProfileScreen() {
   const participations = user
     ? events.filter((e) => e.participantIds.includes(user.id)).length
     : 0;
-  // À brancher quand EventItem aura un champ createdBy (l'organisateur)
-  const created = 0;
+  // Nombre d'événements créés par l'utilisateur
+  const created = user
+    ? events.filter((e) => e.createdBy === user.id).length
+    : 0;
 
   return (
     <SafeAreaView style={{ flex: 1 }}>

@@ -3,7 +3,7 @@ import { router, useLocalSearchParams } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ScrollView, View } from "react-native";
+import { Alert, ScrollView, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { AppText } from "@/components/AppText";
@@ -20,7 +20,13 @@ import { useTheme } from "@/theme/ThemeContext";
 import { formatTime } from "@/utils/date";
 import { distanceKm } from "@/utils/distance";
 
-type WeatherKey = "sunny" | "partlySunny" | "cloudy" | "snow" | "storm" | "rainy";
+type WeatherKey =
+  | "sunny"
+  | "partlySunny"
+  | "cloudy"
+  | "snow"
+  | "storm"
+  | "rainy";
 
 // Icône météo → clé de traduction du libellé (« Ensoleillé »…)
 const weatherLabel: Partial<Record<Weather["icon"], WeatherKey>> = {
@@ -42,7 +48,7 @@ export default function EventDetailScreen() {
   const insets = useSafeAreaInsets();
   const language = useLanguage();
   const { id } = useLocalSearchParams<{ id: string }>();
-  const { events, join, leave } = useEvents();
+  const { events, join, leave, deleteEvent } = useEvents();
   const { user } = useAuth();
   const { position } = useLocation();
   const weatherById = useEventsWeather();
@@ -59,6 +65,8 @@ export default function EventDetailScreen() {
   }
 
   const joined = !!user && event.participantIds.includes(user.id);
+  // Seul le créateur de l'événement peut le modifier ou le supprimer
+  const isOwner = user?.id === event.createdBy;
   const weather = weatherById[event.id];
   const distance = position ? distanceKm(position, event) : null;
   const participants = event.participantIds.length;
@@ -80,6 +88,25 @@ export default function EventDetailScreen() {
     }
   };
 
+  // confirmation avant de supprimer
+  const onToggleDelete = () => {
+    Alert.alert(t("event.deleteTitle"), t("event.deleteMessage"), [
+      { text: t("event.cancel"), style: "cancel" },
+      {
+        text: t("event.delete"),
+        style: "destructive",
+        onPress: async () => {
+          router.back();
+          try {
+            await deleteEvent(event.id);
+          } catch (e) {
+            Alert.alert(t("event.deleteError"), (e as Error).message);
+          }
+        },
+      },
+    ]);
+  };
+
   return (
     <View className="flex-1 bg-background">
       {/* Barre d'état lisible sur le bandeau primary */}
@@ -90,17 +117,22 @@ export default function EventDetailScreen() {
         contentContainerStyle={{ paddingBottom: insets.bottom + 16 }}
       >
         {/* Bandeau : remonte sous la barre d'état (paddingTop = hauteur de l'encoche) */}
-        <View className="gap-md bg-primary px-xl pb-xl" style={{ paddingTop: insets.top + 8 }}>
+        <View
+          className="gap-md bg-primary px-xl pb-xl"
+          style={{ paddingTop: insets.top + 8 }}
+        >
           <View className="flex-row items-center justify-between">
             <HeroButton
               icon="chevron-back"
               onPress={() => router.back()}
               accessibilityLabel={t("event.back")}
             />
-            <View className="flex-row gap-sm">
-              <HeroButton icon="pencil-outline" />
-              <HeroButton icon="trash-outline" />
-            </View>
+            {isOwner && (
+              <View className="flex-row gap-sm">
+                <HeroButton icon="pencil-outline" />
+                <HeroButton icon="trash-outline" onPress={onToggleDelete} />
+              </View>
+            )}
           </View>
 
           <AppText variant="caption" className="text-onPrimary opacity-85">
@@ -112,13 +144,21 @@ export default function EventDetailScreen() {
 
           <View className="gap-xs opacity-90">
             <View className="flex-row items-center gap-sm">
-              <Ionicons name="time-outline" size={15} color={colors.onPrimary} />
+              <Ionicons
+                name="time-outline"
+                size={15}
+                color={colors.onPrimary}
+              />
               <AppText variant="small" className="text-onPrimary">
                 {dateLabel} · {formatTime(event.startsAt)}
               </AppText>
             </View>
             <View className="flex-row items-center gap-sm">
-              <Ionicons name="location-outline" size={15} color={colors.onPrimary} />
+              <Ionicons
+                name="location-outline"
+                size={15}
+                color={colors.onPrimary}
+              />
               <AppText variant="small" className="text-onPrimary">
                 {event.location}
               </AppText>
@@ -143,7 +183,11 @@ export default function EventDetailScreen() {
             label={t("event.distance")}
             icon="navigate-outline"
             iconColor="primary"
-            value={distance != null ? `${distance.toFixed(1).replace(".", ",")} km` : "—"}
+            value={
+              distance != null
+                ? `${distance.toFixed(1).replace(".", ",")} km`
+                : "—"
+            }
             hint={t("event.fromYou")}
           />
         </View>
