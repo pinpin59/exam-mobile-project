@@ -77,7 +77,31 @@
     "deleteMessage": "Êtes-vous sûr de vouloir supprimer votre événement ? Cette action est définitive.",
     "cancel": "Annuler",
     "delete": "Supprimer",
-    "deleteError": "Suppression impossible"
+    "deleteError": "Suppression impossible",
+    "create": "Créer un événement",
+    "edit": "Modifier l'événement",
+    "form": {
+      "name": "Titre",
+      "description": "Description",
+      "date": "Date",
+      "time": "Heure",
+      "location": "Lieu",
+      "useMyPosition": "Utiliser ma position",
+      "category": "Catégorie",
+      "submitCreate": "Créer l'événement",
+      "submitEdit": "Enregistrer les modifications",
+      "close": "Fermer",
+      "saveError": "Enregistrement impossible",
+      "errors": {
+        "required": "Champ obligatoire",
+        "placeNotFound": "Lieu introuvable",
+        "past": "La date est déjà passée"
+      },
+      "done": "OK",
+      "locationDeniedTitle": "Position indisponible",
+      "locationDeniedMessage": "Autorisez la localisation dans les réglages pour utiliser votre position.",
+      "openSettings": "Ouvrir les réglages"
+    }
   },
   "weather": {
     "sunny": "Ensoleillé",

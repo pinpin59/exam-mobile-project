@@ -74,6 +74,15 @@ function RootStack() {
           <Stack.Screen name="(tabs)" />
           {/* Hors des onglets : s'ouvre par-dessus, sans tab bar */}
           <Stack.Screen name="event/[id]" />
+          {/* Modal plein écran : glisse depuis le bas et couvre tout */}
+          <Stack.Screen
+            name="event/create"
+            options={{ presentation: "fullScreenModal" }}
+          />
+          <Stack.Screen
+            name="event/edit/[id]"
+            options={{ presentation: "fullScreenModal" }}
+          />
         </Stack.Protected>
 
         {/* Déconnecté : accès à login / signup uniquement.

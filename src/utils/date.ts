@@ -2,15 +2,20 @@
 const pad = (n: number) => String(n).padStart(2, "0");
 
 // "2026-10-30T09:00:00" → "30/10/2026"
-export function formatDate(iso: string) {
+export function formatDate(iso: string | Date) {
   const d = new Date(iso);
   return `${pad(d.getDate())}/${pad(d.getMonth() + 1)}/${d.getFullYear()}`;
 }
 
 // "2026-10-30T09:00:00" → "9:00"
-export function formatTime(iso: string) {
+export function formatTime(iso: string | Date) {
   const d = new Date(iso);
   return `${d.getHours()}:${pad(d.getMinutes())}`;
+}
+
+// Date → "2026-10-30T09:00:00" en heure locale (format des événements)
+export function toLocalIso(date: Date) {
+  return `${dateKey(date)}T${pad(date.getHours())}:${pad(date.getMinutes())}:00`;
 }
 
 // "2026-10-30T09:00:00" → "30"

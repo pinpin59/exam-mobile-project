@@ -7,7 +7,7 @@ import {
 } from "react";
 
 import * as eventsService from "@/services/events";
-import type { EventItem } from "@/types";
+import type { EventInput, EventItem } from "@/types";
 
 import { useAuth } from "./AuthContext";
 
@@ -19,6 +19,8 @@ type EventsContextValue = {
   join: (eventId: string) => Promise<void>;
   leave: (eventId: string) => Promise<void>;
   deleteEvent: (eventId: string) => Promise<void>;
+  createEvent: (data: EventInput) => Promise<void>;
+  updateEvent: (eventId: string, data: EventInput) => Promise<void>;
 };
 
 const EventsContext = createContext<EventsContextValue | null>(null);
@@ -70,6 +72,17 @@ export function EventsProvider({ children }: { children: ReactNode }) {
     setEvents((list) => list.filter((e) => e.id !== eventId));
   };
 
+  const createEvent = async (data: EventInput) => {
+    if (!user) throw new Error("You must be logged in");
+    const created = await eventsService.createEvent(data, user.id);
+    setEvents((list) => [...list, created]);
+  };
+
+  const updateEvent = async (eventId: string, data: EventInput) => {
+    if (!user) throw new Error("You must be logged in");
+    replaceEvent(await eventsService.updateEvent(eventId, data));
+  };
+
   return (
     <EventsContext.Provider
       value={{
@@ -80,6 +93,8 @@ export function EventsProvider({ children }: { children: ReactNode }) {
         join,
         leave,
         deleteEvent,
+        createEvent,
+        updateEvent,
       }}
     >
       {children}

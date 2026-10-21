@@ -12,3 +12,6 @@ export interface EventItem {
 }
 
 export type EventCategory = "conference" | "workshop" | "outing";
+
+// Ce que l'utilisateur remplit dans le formulaire (id, participants et créateur sont gérés par le service)
+export type EventInput = Omit<EventItem, "id" | "participantIds" | "createdBy">;

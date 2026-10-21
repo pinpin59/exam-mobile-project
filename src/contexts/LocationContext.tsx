@@ -12,6 +12,7 @@ export type LocationStatus = "loading" | "granted" | "denied" | "unavailable";
 type LocationContextValue = {
   position: Coordinates | null;
   status: LocationStatus;
+  requestPosition: () => Promise<Coordinates | null>;
 };
 
 const LocationContext = createContext<LocationContextValue | null>(null);
@@ -68,8 +69,32 @@ export function LocationProvider({
     };
   }, [enabled]);
 
+  // Redemande l'autorisation à la demande (ex : bouton « Utiliser ma position »).
+  // Renvoie la position, ou null si refusée / introuvable
+  const requestPosition = async () => {
+    try {
+      const permission = await Location.requestForegroundPermissionsAsync();
+      if (permission.status !== "granted") {
+        setStatus("denied");
+        return null;
+      }
+      const current = await Location.getCurrentPositionAsync({
+        accuracy: Location.Accuracy.Balanced,
+      });
+      const coords = { latitude: current.coords.latitude, longitude: current.coords.longitude };
+      setPosition(coords); // partagée : les distances s'affichent aussi sur les autres écrans
+      setStatus("granted");
+      return coords;
+    } catch {
+      setStatus("unavailable");
+      return null;
+    }
+  };
+
   return (
-    <LocationContext.Provider value={{ position, status }}>{children}</LocationContext.Provider>
+    <LocationContext.Provider value={{ position, status, requestPosition }}>
+      {children}
+    </LocationContext.Provider>
   );
 }
 

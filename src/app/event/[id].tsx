@@ -129,7 +129,15 @@ export default function EventDetailScreen() {
             />
             {isOwner && (
               <View className="flex-row gap-sm">
-                <HeroButton icon="pencil-outline" />
+                <HeroButton
+                  icon="pencil-outline"
+                  onPress={() =>
+                    router.push({
+                      pathname: "/event/edit/[id]",
+                      params: { id: event.id },
+                    })
+                  }
+                />
                 <HeroButton icon="trash-outline" onPress={onToggleDelete} />
               </View>
             )}
@@ -195,7 +203,7 @@ export default function EventDetailScreen() {
         {/* Description */}
         <AppText className="px-xl text-text">{event.description}</AppText>
 
-        {/* Participants : jusqu'à 3 pastilles qui se chevauchent */}
+        {/* Participants : jusqu'à 3 pastilles */}
         <View className="flex-row items-center gap-sm px-xl">
           {participants > 0 && (
             <View className="flex-row">
@@ -212,7 +220,7 @@ export default function EventDetailScreen() {
           </AppText>
         </View>
 
-        {/* Bouton en bas : mt-auto le pousse au fond de l'écran */}
+        {/* Bouton join */}
         <View className="mt-auto gap-sm px-xl">
           <Button
             label={joined ? t("event.joinedButton") : t("event.join")}

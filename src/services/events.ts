@@ -1,5 +1,5 @@
 import { mockEvents } from "@/mocks";
-import type { EventItem } from "@/types";
+import type { EventInput, EventItem } from "@/types";
 
 import { delay } from "./api";
 
@@ -84,6 +84,39 @@ export async function leaveEvent(
     ...event,
     participantIds: event.participantIds.filter((id) => id !== userId),
   };
+  eventItems[index] = updated;
+
+  return { ...updated };
+}
+
+export async function createEvent(
+  data: EventInput,
+  userId: string,
+): Promise<EventItem> {
+  await delay();
+
+  const created: EventItem = {
+    ...data,
+    id: `e${Date.now()}`, // id unique basé sur l'heure
+    participantIds: [],
+    createdBy: userId,
+  };
+  eventItems.push(created);
+
+  return { ...created };
+}
+
+export async function updateEvent(
+  eventId: string,
+  data: EventInput,
+): Promise<EventItem> {
+  await delay();
+
+  const index = eventItems.findIndex((e) => e.id === eventId);
+  if (index === -1) throw new Error("Event does not exist");
+
+  // On garde id, participants et créateur, on remplace le reste
+  const updated = { ...eventItems[index], ...data };
   eventItems[index] = updated;
 
   return { ...updated };

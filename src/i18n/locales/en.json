@@ -77,7 +77,31 @@
     "deleteMessage": "Are you sure you want to delete your event? This can't be undone.",
     "cancel": "Cancel",
     "delete": "Delete",
-    "deleteError": "Couldn't delete the event"
+    "deleteError": "Couldn't delete the event",
+    "create": "Create an event",
+    "edit": "Edit event",
+    "form": {
+      "name": "Title",
+      "description": "Description",
+      "date": "Date",
+      "time": "Time",
+      "location": "Location",
+      "useMyPosition": "Use my location",
+      "category": "Category",
+      "submitCreate": "Create event",
+      "submitEdit": "Save changes",
+      "close": "Close",
+      "saveError": "Could not save",
+      "errors": {
+        "required": "Required field",
+        "placeNotFound": "Location not found",
+        "past": "This date is in the past"
+      },
+      "done": "OK",
+      "locationDeniedTitle": "Location unavailable",
+      "locationDeniedMessage": "Allow location access in Settings to use your location.",
+      "openSettings": "Open Settings"
+    }
   },
   "weather": {
     "sunny": "Sunny",
