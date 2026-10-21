@@ -62,6 +62,25 @@
     "created": "Created"
   },
   "event": {
-    "joinedBadge": "Going"
+    "joinedBadge": "Going",
+    "back": "Back",
+    "notFound": "This event doesn't exist.",
+    "weather": "Weather",
+    "distance": "Distance",
+    "fromYou": "from your location",
+    "participants_one": "{{count}} attendee",
+    "participants_other": "{{count}} attendees",
+    "join": "Join",
+    "joinedButton": "You're going",
+    "cancelHint": "Tap to cancel your spot"
+  },
+  "weather": {
+    "sunny": "Sunny",
+    "partlySunny": "Partly sunny",
+    "cloudy": "Cloudy",
+    "rainy": "Rain",
+    "snow": "Snow",
+    "storm": "Storm",
+    "unavailable": "No forecast yet"
   }
 }

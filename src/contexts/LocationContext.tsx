@@ -16,12 +16,20 @@ type LocationContextValue = {
 
 const LocationContext = createContext<LocationContextValue | null>(null);
 
-// Demande la position UNE fois, puis la partage avec tous les écrans
-export function LocationProvider({ children }: { children: ReactNode }) {
+// Demande la position UNE fois, puis la partage avec tous les écrans.
+// enabled = false : on attend (ex : pas encore connecté) avant de demander l'autorisation
+export function LocationProvider({
+  children,
+  enabled = true,
+}: {
+  children: ReactNode;
+  enabled?: boolean;
+}) {
   const [position, setPosition] = useState<Coordinates | null>(null);
   const [status, setStatus] = useState<LocationStatus>("loading");
 
   useEffect(() => {
+    if (!enabled) return;
     let cancelled = false; // évite de modifier le state si l'écran a disparu entre-temps
 
     const load = async () => {
@@ -58,7 +66,7 @@ export function LocationProvider({ children }: { children: ReactNode }) {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [enabled]);
 
   return (
     <LocationContext.Provider value={{ position, status }}>{children}</LocationContext.Provider>

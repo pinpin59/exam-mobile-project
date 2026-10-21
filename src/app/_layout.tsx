@@ -18,6 +18,7 @@ import { useEffect } from "react";
 
 import { AuthProvider, useAuth } from "@/contexts/AuthContext";
 import { EventsProvider } from "@/contexts/EventsContext";
+import { LocationProvider } from "@/contexts/LocationContext";
 import { ThemeProvider, useTheme } from "@/theme/ThemeContext";
 
 // Garde le splash screen tant que les polices et la session chargent
@@ -58,7 +59,9 @@ function RootStack() {
   if (isLoading) return null;
 
   return (
-    <>
+    // Partagé par les onglets ET le détail ; la position n'est demandée
+    // qu'une fois connecté (enabled), pas dès l'écran de connexion
+    <LocationProvider enabled={!!user}>
       <StatusBar style={mode === "dark" ? "light" : "dark"} />
       <Stack
         screenOptions={{
@@ -66,9 +69,11 @@ function RootStack() {
           contentStyle: { backgroundColor: colors.background },
         }}
       >
-        {/* Connecté : accès aux onglets uniquement */}
+        {/* Connecté : accès aux onglets et au détail d'un événement */}
         <Stack.Protected guard={!!user}>
           <Stack.Screen name="(tabs)" />
+          {/* Hors des onglets : s'ouvre par-dessus, sans tab bar */}
+          <Stack.Screen name="event/[id]" />
         </Stack.Protected>
 
         {/* Déconnecté : accès à login / signup uniquement.
@@ -77,6 +82,6 @@ function RootStack() {
           <Stack.Screen name="(auth)" />
         </Stack.Protected>
       </Stack>
-    </>
+    </LocationProvider>
   );
 }

@@ -1,7 +1,6 @@
 import { NativeTabs } from "expo-router/unstable-native-tabs";
 import { useTranslation } from "react-i18next";
 
-import { LocationProvider } from "@/contexts/LocationContext";
 import { useTheme } from "@/theme/ThemeContext";
 import { fonts } from "@/theme/typography";
 
@@ -13,9 +12,6 @@ export default function TabsLayout() {
   const contentStyle = { backgroundColor: colors.background };
 
   return (
-    // Ici et pas dans le layout racine : la position n'est demandée
-    // qu'une fois connecté, pas dès l'écran de connexion
-    <LocationProvider>
     <NativeTabs
       backgroundColor={colors.surface}
       tintColor={colors.primary}
@@ -43,6 +39,5 @@ export default function TabsLayout() {
         <NativeTabs.Trigger.Label>{t("tabs.profile")}</NativeTabs.Trigger.Label>
       </NativeTabs.Trigger>
     </NativeTabs>
-    </LocationProvider>
   );
 }

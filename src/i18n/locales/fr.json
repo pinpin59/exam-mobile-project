@@ -62,6 +62,25 @@
     "created": "Créés"
   },
   "event": {
-    "joinedBadge": "Participé"
+    "joinedBadge": "Participé",
+    "back": "Retour",
+    "notFound": "Cet événement n'existe pas.",
+    "weather": "Météo",
+    "distance": "Distance",
+    "fromYou": "depuis votre position",
+    "participants_one": "{{count}} participant",
+    "participants_other": "{{count}} participants",
+    "join": "Participer",
+    "joinedButton": "Vous participez",
+    "cancelHint": "Appuyez pour annuler votre participation"
+  },
+  "weather": {
+    "sunny": "Ensoleillé",
+    "partlySunny": "Éclaircies",
+    "cloudy": "Nuageux",
+    "rainy": "Pluie",
+    "snow": "Neige",
+    "storm": "Orage",
+    "unavailable": "Pas encore de prévision"
   }
 }

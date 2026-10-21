@@ -1,37 +1,47 @@
-import { radius } from "@/theme/typography";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import type { ComponentProps } from "react";
 import { Pressable, type PressableProps } from "react-native";
+
+import type { ColorName } from "@/theme/colors";
+import { useTheme } from "@/theme/ThemeContext";
+import { radius } from "@/theme/typography";
 
 import { AppText } from "./AppText";
 
 type Variant = "primary" | "secondary" | "accent" | "danger";
 
-const variants: Record<Variant, { box: string; label: string }> = {
-  primary: { box: "bg-primary", label: "text-onPrimary" },
-  secondary: { box: "bg-surfaceAlt", label: "text-text" },
-  accent: { box: "bg-accent", label: "text-onAccent" },
-  danger: { box: "bg-dangerSoft", label: "text-danger" },
+// icon : couleur de la palette pour l'icône (les icônes n'acceptent pas className)
+const variants: Record<Variant, { box: string; label: string; icon: ColorName }> = {
+  primary: { box: "bg-primary", label: "text-onPrimary", icon: "onPrimary" },
+  secondary: { box: "bg-surfaceAlt", label: "text-text", icon: "text" },
+  accent: { box: "bg-accent", label: "text-onAccent", icon: "onAccent" },
+  danger: { box: "bg-dangerSoft", label: "text-danger", icon: "danger" },
 };
 
 type Props = Omit<PressableProps, "children"> & {
   label: string;
   variant?: Variant;
+  icon?: ComponentProps<typeof Ionicons>["name"]; // optionnel, affiché avant le texte
 };
 
 export function Button({
   label,
   variant = "primary",
+  icon,
   disabled,
   ...rest
 }: Props) {
+  const { colors } = useTheme();
   const v = variants[variant];
   return (
     <Pressable
       accessibilityRole="button"
       disabled={disabled}
-      className={`items-center justify-center px-xl py-lg active:opacity-80 ${v.box} ${disabled ? "opacity-50" : ""}`}
+      className={`flex-row items-center justify-center gap-sm px-xl py-lg active:opacity-80 ${v.box} ${disabled ? "opacity-50" : ""}`}
       style={{ borderRadius: radius.md }}
       {...rest}
     >
+      {icon && <Ionicons name={icon} size={18} color={colors[v.icon]} />}
       <AppText variant="button" className={v.label}>
         {label}
       </AppText>
