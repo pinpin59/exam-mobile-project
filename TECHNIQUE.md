@@ -2,7 +2,7 @@
 
 J'ai fait l'app avec Expo (SDK 57) et TypeScript, pour pouvoir la tester directement dans Expo Go sans gérer de code natif.
 
-Pour la navigation j'utilise Expo Router : chaque fichier dans `src/app/` est un écran. Les pages sont protégées avec `Stack.Protected`, donc si on n'est pas connecté on est renvoyé vers la connexion. Il y a 3 onglets (Événements, Calendrier, Profil), et la création / modification d'un événement s'ouvre en modal plein écran.
+Pour la navigation j'utilise Expo Router, chaque fichier dans `src/app/` est un écran. Les pages sont protégées avec `Stack.Protected`, donc si on n'est pas connecté on est renvoyé vers la connexion. Il y a 3 onglets (Événements, Calendrier, Profil), et la création / modification d'un événement s'ouvre en modal plein écran.
 
 J'ai séparé le code en plusieurs parties : les `services` récupèrent les données, les `contexts` les partagent entre les écrans, et les `components` sont les morceaux d'interface que je réutilise (boutons, champs, cartes...).
 

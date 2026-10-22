@@ -131,7 +131,7 @@ export default function EventDetailScreen() {
                   icon="pencil-outline"
                   onPress={() =>
                     router.push({
-                      pathname: "/event/edit/[id]",
+                      pathname: "/event/edit/[id]" as "/event/[id]",
                       params: { id: event.id },
                     })
                   }

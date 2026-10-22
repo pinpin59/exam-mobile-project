@@ -8,7 +8,6 @@ import { fonts } from "@/theme/typography";
 export default function TabsLayout() {
   const { t } = useTranslation();
   const { colors } = useTheme();
-  // Fond des écrans : sans ça, chaque onglet a un fond blanc natif, même en mode sombre
   const contentStyle = { backgroundColor: colors.background };
 
   return (

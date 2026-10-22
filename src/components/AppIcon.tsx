@@ -14,7 +14,7 @@ type Props = {
   boxSize?: number;
   radius?: number;
   onPress?: () => void;
-  accessibilityLabel?: string; // lu par le lecteur d'écran quand l'icône est un bouton
+  accessibilityLabel?: string;
 };
 
 export function AppIcon({
