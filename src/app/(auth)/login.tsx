@@ -50,7 +50,6 @@ export default function LoginScreen() {
     setIsSubmitting(true);
     try {
       await login(form);
-      // Pas de navigation : le Stack.Protected affiche les onglets tout seul
     } catch (e) {
       setFormError((e as Error).message);
     } finally {
@@ -65,99 +64,99 @@ export default function LoginScreen() {
         style={{ flex: 1 }}
         behavior={Platform.OS === "ios" ? "padding" : undefined}
       >
-      <ScrollView
-        contentContainerClassName="flex-grow justify-center gap-lg p-xl"
-        keyboardShouldPersistTaps="handled"
-      >
-        {/* Logo + titre */}
-        <AppIcon
-          name="ticket-outline"
-          size={26}
-          color="onPrimary"
-          background="primary"
-          boxSize={56}
-          radius={radius.lg}
-        />
-        <View className="gap-xs">
-          <AppText variant="display">EventEase</AppText>
-          <AppText variant="small" className="text-textMuted">
-            {t("auth.appSubtitle")}
-          </AppText>
-        </View>
-
-        <AuthTabs value="login" onChange={goToSignup} />
-
-        {/* Erreur renvoyée par le service (ex : mauvais mot de passe) */}
-        {formError && (
-          <View className="flex-row items-center gap-sm rounded-md bg-dangerSoft p-md">
-            <Ionicons
-              name="alert-circle-outline"
-              size={18}
-              color={colors.danger}
-            />
-            <AppText variant="small" className="flex-1 text-danger">
-              {formError}
+        <ScrollView
+          contentContainerClassName="flex-grow justify-center gap-lg p-xl"
+          keyboardShouldPersistTaps="handled"
+        >
+          {/* Logo + titre */}
+          <AppIcon
+            name="ticket-outline"
+            size={26}
+            color="onPrimary"
+            background="primary"
+            boxSize={56}
+            radius={radius.lg}
+          />
+          <View className="gap-xs">
+            <AppText variant="display">EventEase</AppText>
+            <AppText variant="small" className="text-textMuted">
+              {t("auth.appSubtitle")}
             </AppText>
           </View>
-        )}
 
-        <TextField
-          label={t("auth.email")}
-          placeholder={t("auth.emailPlaceholder")}
-          value={form.email}
-          onChangeText={update("email")}
-          error={errors.email && t(`auth.errors.${errors.email}`)}
-          keyboardType="email-address"
-          autoCapitalize="none"
-          autoComplete="email"
-          returnKeyType="next"
-        />
-        <TextField
-          label={t("auth.password")}
-          placeholder={t("auth.passwordPlaceholder")}
-          value={form.password}
-          onChangeText={update("password")}
-          error={errors.password && t(`auth.errors.${errors.password}`)}
-          secureTextEntry
-          autoComplete="password"
-          returnKeyType="done"
-          onSubmitEditing={onSubmit}
-        />
+          <AuthTabs value="login" onChange={goToSignup} />
 
-        <Button
-          label={isSubmitting ? "…" : t("auth.login")}
-          disabled={isSubmitting}
-          onPress={onSubmit}
-        />
+          {/* Error */}
+          {formError && (
+            <View className="flex-row items-center gap-sm rounded-md bg-dangerSoft p-md">
+              <Ionicons
+                name="alert-circle-outline"
+                size={18}
+                color={colors.danger}
+              />
+              <AppText variant="small" className="flex-1 text-danger">
+                {formError}
+              </AppText>
+            </View>
+          )}
 
-        <Pressable onPress={goToSignup} className="items-center py-xs">
-          <AppText variant="small" className="text-textMuted">
-            {t("auth.noAccountQuestion")}{" "}
+          <TextField
+            label={t("auth.email")}
+            placeholder={t("auth.emailPlaceholder")}
+            value={form.email}
+            onChangeText={update("email")}
+            error={errors.email && t(`auth.errors.${errors.email}`)}
+            keyboardType="email-address"
+            autoCapitalize="none"
+            autoComplete="email"
+            returnKeyType="next"
+          />
+          <TextField
+            label={t("auth.password")}
+            placeholder={t("auth.passwordPlaceholder")}
+            value={form.password}
+            onChangeText={update("password")}
+            error={errors.password && t(`auth.errors.${errors.password}`)}
+            secureTextEntry
+            autoComplete="password"
+            returnKeyType="done"
+            onSubmitEditing={onSubmit}
+          />
+
+          <Button
+            label={isSubmitting ? "…" : t("auth.login")}
+            disabled={isSubmitting}
+            onPress={onSubmit}
+          />
+
+          <Pressable onPress={goToSignup} className="items-center py-xs">
+            <AppText variant="small" className="text-textMuted">
+              {t("auth.noAccountQuestion")}{" "}
+              <AppText
+                variant="small"
+                className="text-primary"
+                style={{ fontFamily: fonts.bold }}
+              >
+                {t("auth.createAccount")}
+              </AppText>
+            </AppText>
+          </Pressable>
+
+          <View className="flex-row items-center justify-center gap-xs">
+            <Ionicons
+              name="phone-portrait-outline"
+              size={14}
+              color={colors.textMuted}
+            />
             <AppText
               variant="small"
-              className="text-primary"
-              style={{ fontFamily: fonts.bold }}
+              className="text-textMuted"
+              style={{ fontSize: 12 }}
             >
-              {t("auth.createAccount")}
+              {t("auth.deviceNote")}
             </AppText>
-          </AppText>
-        </Pressable>
-
-        <View className="flex-row items-center justify-center gap-xs">
-          <Ionicons
-            name="phone-portrait-outline"
-            size={14}
-            color={colors.textMuted}
-          />
-          <AppText
-            variant="small"
-            className="text-textMuted"
-            style={{ fontSize: 12 }}
-          >
-            {t("auth.deviceNote")}
-          </AppText>
-        </View>
-      </ScrollView>
+          </View>
+        </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
   );

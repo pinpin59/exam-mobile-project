@@ -12,7 +12,7 @@ import {
   ScrollView,
   View,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { useLocation, type Coordinates } from "@/contexts/LocationContext";
 import { useTheme } from "@/theme/ThemeContext";
@@ -50,6 +50,7 @@ export function EventForm({ title, submitLabel, initial, onSubmit }: Props) {
   const { t, i18n } = useTranslation();
   const { colors, mode } = useTheme();
   const { position, requestPosition } = useLocation();
+  const insets = useSafeAreaInsets();
 
   // Valeurs de départ : celles de l'événement à modifier, sinon vide
   const [name, setName] = useState(initial?.name ?? "");
@@ -78,7 +79,6 @@ export function EventForm({ title, submitLabel, initial, onSubmit }: Props) {
   };
 
   const useMyPosition = async () => {
-    // Pas encore de position (refusée au démarrage…) : on redemande l'autorisation
     const current = position ?? (await requestPosition());
     if (!current) {
       // Après un refus, iOS ne redemande plus : seul le menu Réglages peut l'activer
@@ -195,7 +195,11 @@ export function EventForm({ title, submitLabel, initial, onSubmit }: Props) {
   );
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    // Marges de l'encoche et de la barre du bas appliquées à la main :
+    // dans une modal plein écran, SafeAreaView les mesure parfois à 0
+    <View
+      style={{ flex: 1, paddingTop: insets.top, paddingBottom: insets.bottom }}
+    >
       {/* iOS : le sélecteur dans une carte au milieu de l'écran, fond assombri.
           Un appui sur le fond ou sur OK ferme */}
       <Modal
@@ -347,6 +351,6 @@ export function EventForm({ title, submitLabel, initial, onSubmit }: Props) {
       <View className="px-xl pb-md">
         <Button label={submitLabel} onPress={onSave} disabled={isSaving} />
       </View>
-    </SafeAreaView>
+    </View>
   );
 }

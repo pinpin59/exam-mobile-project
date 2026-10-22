@@ -26,7 +26,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Au démarrage : on relit l'utilisateur enregistré pour rester connecté
   useEffect(() => {
     AsyncStorage.getItem(KEY)
       .then((saved) => {
@@ -36,14 +35,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       .finally(() => setIsLoading(false));
   }, []);
 
-  // Enregistre l'utilisateur dans l'état React ET sur le téléphone
   const saveSession = async (u: User) => {
     setUser(u);
     await AsyncStorage.setItem(KEY, JSON.stringify(u));
   };
 
-  // Pas de try/catch ici : si le service lance une erreur, elle remonte
-  // jusqu'à l'écran, qui l'affichera (ex : « Email or password incorrect »)
   const login = async (credentials: Credentials) => {
     await saveSession(await authService.login(credentials));
   };

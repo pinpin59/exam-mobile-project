@@ -1,5 +1,11 @@
 import * as Location from "expo-location";
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  type ReactNode,
+} from "react";
 
 export type Coordinates = { latitude: number; longitude: number };
 
@@ -17,6 +23,31 @@ type LocationContextValue = {
 
 const LocationContext = createContext<LocationContextValue | null>(null);
 
+type PositionResult = { status: LocationStatus; position: Coordinates | null };
+
+// 1. Demande l'autorisation  2. Récupère la position GPS.
+// Ne touche pas au state : renvoie juste le résultat
+async function fetchPosition(): Promise<PositionResult> {
+  try {
+    const permission = await Location.requestForegroundPermissionsAsync();
+    if (permission.status !== "granted") {
+      return { status: "denied", position: null };
+    }
+    const current = await Location.getCurrentPositionAsync({
+      accuracy: Location.Accuracy.Balanced,
+    });
+    return {
+      status: "granted",
+      position: {
+        latitude: current.coords.latitude,
+        longitude: current.coords.longitude,
+      },
+    };
+  } catch {
+    return { status: "unavailable", position: null };
+  }
+}
+
 // Demande la position UNE fois, puis la partage avec tous les écrans.
 // enabled = false : on attend (ex : pas encore connecté) avant de demander l'autorisation
 export function LocationProvider({
@@ -29,67 +60,20 @@ export function LocationProvider({
   const [position, setPosition] = useState<Coordinates | null>(null);
   const [status, setStatus] = useState<LocationStatus>("loading");
 
+  // Range le résultat dans le state (partagé avec tous les écrans)
+  const save = (result: PositionResult) => {
+    setStatus(result.status);
+    if (result.position) setPosition(result.position);
+    return result.position;
+  };
+
+  // Au démarrage (une fois connecté)
   useEffect(() => {
-    if (!enabled) return;
-    let cancelled = false; // évite de modifier le state si l'écran a disparu entre-temps
-
-    const load = async () => {
-      try {
-        const permission = await Location.requestForegroundPermissionsAsync();
-        if (cancelled) return;
-        if (permission.status !== "granted") {
-          setStatus("denied");
-          return;
-        }
-
-        // 1. Dernière position connue : instantanée, pour afficher vite les distances
-        const last = await Location.getLastKnownPositionAsync({ maxAge: 60_000 });
-        if (cancelled) return;
-        if (last) {
-          setPosition({ latitude: last.coords.latitude, longitude: last.coords.longitude });
-          setStatus("granted");
-        }
-
-        // 2. Position actuelle : plus lente mais précise, remplace la précédente
-        const current = await Location.getCurrentPositionAsync({
-          accuracy: Location.Accuracy.Balanced,
-        });
-        if (cancelled) return;
-        setPosition({ latitude: current.coords.latitude, longitude: current.coords.longitude });
-        setStatus("granted");
-      } catch {
-        // GPS désactivé, simulateur sans position… : on continue sans distance
-        if (!cancelled) setStatus("unavailable");
-      }
-    };
-
-    load();
-    return () => {
-      cancelled = true;
-    };
+    if (enabled) fetchPosition().then(save);
   }, [enabled]);
 
-  // Redemande l'autorisation à la demande (ex : bouton « Utiliser ma position »).
-  // Renvoie la position, ou null si refusée / introuvable
-  const requestPosition = async () => {
-    try {
-      const permission = await Location.requestForegroundPermissionsAsync();
-      if (permission.status !== "granted") {
-        setStatus("denied");
-        return null;
-      }
-      const current = await Location.getCurrentPositionAsync({
-        accuracy: Location.Accuracy.Balanced,
-      });
-      const coords = { latitude: current.coords.latitude, longitude: current.coords.longitude };
-      setPosition(coords); // partagée : les distances s'affichent aussi sur les autres écrans
-      setStatus("granted");
-      return coords;
-    } catch {
-      setStatus("unavailable");
-      return null;
-    }
-  };
+  // Bouton « Utiliser ma position » : redemande, renvoie la position ou null
+  const requestPosition = () => fetchPosition().then(save);
 
   return (
     <LocationContext.Provider value={{ position, status, requestPosition }}>
@@ -100,6 +84,7 @@ export function LocationProvider({
 
 export function useLocation() {
   const ctx = useContext(LocationContext);
-  if (!ctx) throw new Error("useLocation doit être utilisé dans un <LocationProvider>");
+  if (!ctx)
+    throw new Error("useLocation doit être utilisé dans un <LocationProvider>");
   return ctx;
 }

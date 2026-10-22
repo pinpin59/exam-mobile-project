@@ -51,7 +51,6 @@ export function EventsProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  // Remplace un seul événement dans la liste (pas de modification directe)
   const replaceEvent = (updated: EventItem) => {
     setEvents((list) => list.map((e) => (e.id === updated.id ? updated : e)));
   };

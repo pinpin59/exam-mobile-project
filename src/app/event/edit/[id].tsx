@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next";
 import { EventForm } from "@/components/EventForm";
 import { useEvents } from "@/contexts/EventsContext";
 
-// Même formulaire que la création, pré-rempli avec l'événement
 export default function EditEventScreen() {
   const { t } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();

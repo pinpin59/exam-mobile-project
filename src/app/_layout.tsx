@@ -50,8 +50,6 @@ function RootStack() {
   const { mode, colors } = useTheme();
   const { user, isLoading } = useAuth();
 
-  // On cache le splash seulement quand on sait si l'utilisateur est connecté,
-  // sinon l'écran de connexion clignoterait avant d'afficher les onglets
   useEffect(() => {
     if (!isLoading) SplashScreen.hideAsync();
   }, [isLoading]);
@@ -59,8 +57,6 @@ function RootStack() {
   if (isLoading) return null;
 
   return (
-    // Partagé par les onglets ET le détail ; la position n'est demandée
-    // qu'une fois connecté (enabled), pas dès l'écran de connexion
     <LocationProvider enabled={!!user}>
       <StatusBar style={mode === "dark" ? "light" : "dark"} />
       <Stack
@@ -69,12 +65,9 @@ function RootStack() {
           contentStyle: { backgroundColor: colors.background },
         }}
       >
-        {/* Connecté : accès aux onglets et au détail d'un événement */}
         <Stack.Protected guard={!!user}>
           <Stack.Screen name="(tabs)" />
-          {/* Hors des onglets : s'ouvre par-dessus, sans tab bar */}
           <Stack.Screen name="event/[id]" />
-          {/* Modal plein écran : glisse depuis le bas et couvre tout */}
           <Stack.Screen
             name="event/create"
             options={{ presentation: "fullScreenModal" }}
@@ -84,9 +77,6 @@ function RootStack() {
             options={{ presentation: "fullScreenModal" }}
           />
         </Stack.Protected>
-
-        {/* Déconnecté : accès à login / signup uniquement.
-            À la déconnexion, user devient null → renvoi automatique ici */}
         <Stack.Protected guard={!user}>
           <Stack.Screen name="(auth)" />
         </Stack.Protected>

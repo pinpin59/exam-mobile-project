@@ -23,10 +23,8 @@ export default function EventsScreen() {
   const { position } = useLocation();
   const weatherById = useEventsWeather();
 
-  // Onglet choisi : tous les événements, ou seulement les miens
   const [filter, setFilter] = useState<"all" | "mine">("all");
 
-  // « Mes événements » = ceux auxquels je participe ou que j'ai créés
   const isMine = (e: EventItem) =>
     !!user && (e.participantIds.includes(user.id) || e.createdBy === user.id);
 

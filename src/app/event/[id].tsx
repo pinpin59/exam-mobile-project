@@ -41,7 +41,6 @@ const weatherLabel: Partial<Record<Weather["icon"], WeatherKey>> = {
 // Couleurs des pastilles de participants (classes de la palette)
 const dotColors = ["bg-primarySoft", "bg-accentSoft", "bg-surfaceAlt"];
 
-// Écran de détail : /event/e3 → id = "e3"
 export default function EventDetailScreen() {
   const { t } = useTranslation();
   const { colors, mode } = useTheme();
@@ -65,7 +64,6 @@ export default function EventDetailScreen() {
   }
 
   const joined = !!user && event.participantIds.includes(user.id);
-  // Seul le créateur de l'événement peut le modifier ou le supprimer
   const isOwner = user?.id === event.createdBy;
   const weather = weatherById[event.id];
   const distance = position ? distanceKm(position, event) : null;
