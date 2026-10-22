@@ -86,7 +86,6 @@ export default function ProfileScreen() {
               />
             }
           />
-          <SettingsRow icon="log-out-outline" label="Localisation" />
           <SettingsRow
             icon="language-outline"
             label={t("settings.language")}
@@ -105,7 +104,7 @@ export default function ProfileScreen() {
         <SettingsGroup>
           <SettingsRow
             icon="log-out-outline"
-            label="Se déconnecter"
+            label={t("settings.logout")}
             danger
             onPress={logout}
           />

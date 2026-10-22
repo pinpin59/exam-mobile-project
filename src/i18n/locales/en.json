@@ -12,7 +12,9 @@
     "language": "Language",
     "light": "Light",
     "dark": "Dark",
-    "system": "System"
+    "system": "System",
+    "location": "Location",
+    "logout": "Log out"
   },
   "category": {
     "conference": "Conference",
@@ -101,6 +103,11 @@
       "locationDeniedTitle": "Location unavailable",
       "locationDeniedMessage": "Allow location access in Settings to use your location.",
       "openSettings": "Open Settings"
+    },
+    "filter": {
+      "all": "All",
+      "mine": "My events",
+      "empty": "No upcoming events."
     }
   },
   "weather": {

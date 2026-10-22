@@ -12,7 +12,9 @@
     "language": "Langue",
     "light": "Clair",
     "dark": "Sombre",
-    "system": "Système"
+    "system": "Système",
+    "location": "Localisation",
+    "logout": "Se déconnecter"
   },
   "category": {
     "conference": "Conférence",
@@ -101,6 +103,11 @@
       "locationDeniedTitle": "Position indisponible",
       "locationDeniedMessage": "Autorisez la localisation dans les réglages pour utiliser votre position.",
       "openSettings": "Ouvrir les réglages"
+    },
+    "filter": {
+      "all": "Tous",
+      "mine": "Mes événements",
+      "empty": "Aucun événement à venir."
     }
   },
   "weather": {

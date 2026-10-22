@@ -3,12 +3,7 @@ import type { EventInput, EventItem } from "@/types";
 
 import { delay } from "./api";
 
-// « Base de données » en mémoire, remise à zéro au redémarrage de l'app.
-// Règle : on ne modifie jamais un événement, on le remplace par une nouvelle version.
 const eventItems: EventItem[] = [...mockEvents];
-
-// Les fonctions renvoient des copies ({ ...e }) pour que les écrans
-// ne puissent pas modifier la base sans passer par le service.
 
 export async function getEvents(): Promise<EventItem[]> {
   await delay();
@@ -55,7 +50,6 @@ export async function joinEvent(
     throw new Error("User already joined the event");
   }
 
-  // Nouveau tableau avec le participant en plus (pas de push)
   const updated = {
     ...event,
     participantIds: [...event.participantIds, userId],
